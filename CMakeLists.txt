@@ -8,13 +8,16 @@ project(trial)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  pcl_ros
-  roscpp
-  rospy
-  std_msgs
-  pitt_msgs
+        pcl_ros
+        roscpp
+        rospy
+        std_msgs
+        sensor_msgs
+        pitt_msgs
+        pcl_conversions
 )
 
+find_package(PCL REQUIRED)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -105,11 +108,13 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES trial
-#  CATKIN_DEPENDS pcl_ros roscpp rospy std_msgs
-#  DEPENDS system_lib
+        #  INCLUDE_DIRS include
+        #  LIBRARIES object_table_segmentation
+        #  CATKIN_DEPENDS other_catkin_pkg
+        CATKIN_DEPENDS pcl_conversions roscpp sensor_msgs pcl_msgs pitt_msgs message_generation
+        #  DEPENDS system_lib
 )
+
 
 ###########
 ## Build ##
@@ -118,9 +123,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
+
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+        ${catkin_INCLUDE_DIRS}
+        ${PCL_INCLUDE_DIRS}
 )
+
+link_directories(${PCL_LIBRARY_DIRS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -201,5 +210,5 @@ include_directories(
 # catkin_add_nosetests(test)
 # ransac orchetrator node
 add_executable(color_trial src/color_trial.cpp)
-target_link_libraries(color_trial ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(color_trial ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
 add_dependencies(color_trial pitt_msgs_generate_messages_cpp)
