@@ -4,6 +4,7 @@
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Float32.h"
 #include <sstream>
 #include <pcl_ros/point_cloud.h>
 #include "pitt_msgs/ColorSrvMsg.h"
@@ -143,7 +144,7 @@ void callback( const ClustersOutputConstPtr& clusterObj){
         // check which color is the point cloud
         if (color_red(hAverage)) {
             color_name = NAME_COLOR_RED;
-            ROS_INFO_STREAM("RED" << endl);
+            ROS_INFO_STREAM("%s"<<color_name<<endl);
         } else if (color_green(hAverage)) {
             color_name = NAME_COLOR_GREEN;
             ROS_INFO_STREAM("GREEN" << endl);

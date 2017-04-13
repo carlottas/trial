@@ -212,3 +212,7 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_executable(color_trial src/color_trial.cpp)
 target_link_libraries(color_trial ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
 add_dependencies(color_trial pitt_msgs_generate_messages_cpp)
+
+add_executable(color_client src/color_client.cpp)
+target_link_libraries(color_client ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+add_dependencies(color_client pitt_msgs_generate_messages_cpp)
